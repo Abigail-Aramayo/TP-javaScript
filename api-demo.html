@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>API -pokémon</title>
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+    <h2>Buscador de Pokémon</h2>
+    <input type="text" id="buscador" placeholder="Mínimo 3 caracteres...">
+    <div id="mensaje"></div>
+    <div id="contenedor" class="grid"></div>
+    <script>
+        const contenedor = document.getElementById('contenedor');
+        const mensaje = document.getElementById('mensaje');
+        const buscador = document.getElementById('buscador');
+        let pokemonBase = [];
+        async function cargarDatos() {
+            mensaje.innerHTML = "Cargando...";
+            try {
+                const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
+                const data = await res.json();
+                pokemonBase = await Promise.all(data.results.map(async (p) => {
+                    const r = await fetch(p.url);
+                    return await r.json();
+                }));
+
+                renderizar(pokemonBase);
+                mensaje.innerHTML = "";
+            } catch (error) {
+                mensaje.innerHTML = `<p class="error">Error de red: ${error.message}</p>`;
+            }
+        }
+        function renderizar(lista) {
+            if (lista.length === 0) {
+                contenedor.innerHTML = "";
+                mensaje.innerHTML = "No se encontraron resultados";
+                return;
+            }
+            mensaje.innerHTML = "";
+            contenedor.innerHTML = lista.map(p => `
+                <div class="tarjeta">
+                    <img src="${p.sprites.front_default}" alt="${p.name}">
+                    <h4>${p.name}</h4>
+                </div>
+            `).join('');
+        }
+        buscador.addEventListener('input', () => {
+            const query = buscador.value.toLowerCase();
+            if (query.length < 3) {
+                mensaje.innerHTML = "Escribe al menos 3 caracteres...";
+                contenedor.innerHTML = "";
+                return;
+            }
+            mensaje.innerHTML = "Buscando...";
+            const filtrados = pokemonBase.filter(p => 
+                p.name.toLowerCase().includes(query)
+            );
+            renderizar(filtrados);
+        });
+
+        cargarDatos();
+    </script>
+</body>
+</html>
