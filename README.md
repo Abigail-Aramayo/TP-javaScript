@@ -2,7 +2,7 @@ PROYECTO: Aplicación Web Interactiva
 
 ​NOMBRE Y APELLIDO: Abigail Aramayo
 
-​DESCRIPCIÓN DEL PROYECTO
+​DESCRIPCIÓN DEL PROYECTO:
 ​Este proyecto es una plataforma web integral que demuestra habilidades en el desarrollo de interfaces interactivas, manipulación del DOM y consumo de datos externos. Se compone de tres secciones principales:
 ​GESTIÓN DE PRODUCTOS
 (productos.html): Un catálogo de indumentaria que permite filtrar  por nombre, categoría, rango de precio y disponibilidad de stock.
