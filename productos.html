@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos-Filtrado</title>
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+    <div class="filtros">
+        <input type="text" id="nombre" placeholder="Nombre...">
+        <select id="categoria">
+            <option value="todos">Todas</option>
+            <option value="Pantalones">Pantalones</option>
+            <option value="Remeras">Remeras</option>
+        </select>
+        <label>Máx: $<span id="txtPrecio">40000</span>
+            <input type="range" id="precio" min="0" max="40000" value="40000">
+        </label>
+        <label><input type="checkbox" id="stock"> En Stock</label>
+    </div>
+    <div id="contenedor" class="grid"></div>
+    <script>
+        const productos = [
+            { id: 1, nombre: "Pantalón Baggy", precio:19000, categoria: "Pantalones", enStock: true },
+            { id: 2, nombre: "Remera de ARG", precio:17000, categoria: "Remeras", enStock: true },
+            { id: 3, nombre: "Pantalón Cargo", precio:25000, categoria: "Pantalones", enStock: false },
+            { id: 4, nombre: "Remera Sol de mayo", precio:9000, categoria: "Remeras", enStock: true },
+            { id: 5, nombre: "Pantalón Palazzo ", precio: 18000, categoria: "Pantalones", enStock: true },
+            { id: 6, nombre: "Buzo Plush", precio: 15000, categoria: "Remeras", enStock: false },
+            { id: 7, nombre: "Pantalón de darlon", precio: 14000, categoria: "Pantalones", enStock: true },
+            { id: 8, nombre: "Remera Básica", precio: 7000, categoria: "Remeras", enStock: true }
+        ];
+        const contenedor = document.getElementById('contenedor');
+        const inputNombre = document.getElementById('nombre');
+        const selectCat = document.getElementById('categoria');
+        const inputPrecio = document.getElementById('precio');
+        const checkStock = document.getElementById('stock');
+        const txtPrecio = document.getElementById('txtPrecio');
+        function mostrar(lista) {
+            contenedor.innerHTML = lista.map(p => `
+                <div class="tarjeta">
+                    <h4>${p.nombre}</h4>
+                    <p>$${p.precio}</p>
+                    <p>${p.categoria}</p>
+                    <p>${p.enStock ? "Disponible" : "Sin Stock"}</p>
+                </div>
+            `).join('');
+        }
+        function filtrar() {
+            txtPrecio.innerText = inputPrecio.value;
+            const filtrados = productos.filter(p => {
+                const coincideNombre = p.nombre.toLowerCase().includes(inputNombre.value.toLowerCase());
+                const coincideCat = selectCat.value === "todos" || p.categoria === selectCat.value;
+                const coincidePrecio = p.precio <= inputPrecio.value;
+                const coincideStock = !checkStock.checked || p.enStock;
+                return coincideNombre && coincideCat && coincidePrecio && coincideStock;
+            });
+            mostrar(filtrados);
+        }
+        inputNombre.addEventListener('input', filtrar);
+        selectCat.addEventListener('change', filtrar);
+        inputPrecio.addEventListener('input', filtrar);
+        checkStock.addEventListener('change', filtrar);
+        mostrar(productos);
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>lista de Tareas</title>
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+    <form id="formTarea">
+        <input type="text" id="inputTarea" placeholder="Nueva prenda...">
+        <button type="submit">Agregar</button>
+    </form>
+    <p>Pendientes: <span id="contador">0</span></p>
+    <ul id="lista"></ul>
+    <script>
+        const form = document.getElementById('formTarea');
+        const input = document.getElementById('inputTarea');
+        const lista = document.getElementById('lista');
+        const contador = document.getElementById('contador');
+        let total = 0;
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const valor = input.value.trim();
+            if (valor === "") return;
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span class="texto">${valor}</span>
+                <button class="borrar">Eliminar</button>
+            `;
+            li.querySelector('.texto').addEventListener('click', function() {
+                this.classList.toggle('completada');
+            });
+            li.querySelector('.borrar').addEventListener('click', () => {
+                li.remove();
+                total--;
+                contador.innerText = total;
+            });
+            lista.appendChild(li);
+            total++;
+            contador.innerText = total;
+            input.value = "";
+        });
+    </script>
+</body>
+</html>
