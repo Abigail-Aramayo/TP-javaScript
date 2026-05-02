@@ -68,3 +68,10 @@ input[type="text"] {
 input[type="text"]:focus {
     border-color: var(--color-principal); 
 }
+footer {
+    text-align: center;
+    padding: 20px;        
+    margin-top: 40px;     
+    font-size: 14px;      
+    color: #666;        
+}
