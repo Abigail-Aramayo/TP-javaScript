@@ -32,7 +32,7 @@ Seleccioná la opción "Open with Live Server". Esto abrirá la aplicación en t
 
 Guía de Funcionalidades
 Catálogo de Productos: Utilizá el buscador y los filtros laterales. El filtrado de precio y stock es instantáneo gracias a la lógica de JavaScript.
-Gestor de Tareas:Agregá prendas a la lista. Hacé clic sobre el nombre de la tarea para marcarla como "completada" (se tachará automáticamente) o usá el botón de eliminar para quitarla y actualizar el contador.
+Gestor de Tareas:Agregá tareas a la lista. Hacé clic sobre el nombre de la tarea para marcarla como "completada" (se tachará automáticamente) o usá el botón de eliminar para quitarla y actualizar el contador.
 Buscador Pokémon: Escribí el nombre de un Pokémon. El sistema realizará una petición a laPokéAPI y generará una tarjeta visual con los datos obtenidos en tiempo real.
 
 CAPTURAS DE PANTALLA:
